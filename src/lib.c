@@ -10,12 +10,14 @@ struct Circle {
 	char *color;
 	double (*circumference)(Circle *self);
 	double (*area) (Circle *self);
+	bool (*larger_than) (Circle *self, Circle *other);
 	void (*format) (Circle *self);
 };
 
 Circle new(double radius, char *color);
 double circumference(Circle *self);
 double area(Circle *self);
+bool larger_than(Circle *self, Circle *other);
 void format(Circle *self);
 
 Circle new(double radius, char *color) {
@@ -24,6 +26,7 @@ Circle new(double radius, char *color) {
 	self.color = color;
 	self.circumference = circumference;
 	self.area = area;
+	self.larger_than = larger_than;
 	self.format = format;
 	return self;
 }
@@ -36,14 +39,15 @@ double area(Circle *self) {
 	return PI * pow(self->radius, 2);
 }
 
+bool larger_than(Circle *self, Circle *other) {
+	return self->radius > other->radius;
+}
+
 void format(Circle *self) {
 	printf(
-		"Circle {\n\tradius: %f,\n\tcolor: %s,\n\tcircumference: %f,\n\tarea: %f,\n}\n",
+		"Circle {\n\tradius: %f,\n\tcolor: %s\n}\n",
 		self->radius,
-		self->color,
-		self->circumference(self),
-		self->area(self)
+		self->color
 	);
 	return;
 }
-
