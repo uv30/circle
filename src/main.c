@@ -1,21 +1,15 @@
 #include "lib.c"
 
 int main(void) {
-	Circle red_circle = new(10, "Red");
-	red_circle.format(&red_circle);
-	Circle blue_circle = new(3, "Blue");
-	blue_circle.format(&blue_circle);
-	printf(
-		"Circle %s is bigger than %s: %s\n",
-		red_circle.color, blue_circle.color,
-		red_circle.larger_than(&red_circle, &blue_circle)? "true" : "false"
-	);
-	printf(
-		"Because Circle %s has %f area square and Circle %s has %f area square\n",
-		red_circle.color,
-		red_circle.area(&red_circle),
-		blue_circle.color,
-		blue_circle.area(&blue_circle)
-	);
+	Circle *circle_ptr = malloc(sizeof(Circle));
+	if (circle_ptr == NULL) {
+		printf("malloc call failed! Null pointer returned");
+		return 0;
+	}
+	new_from_ptr(circle_ptr, 1, "Green");
+	circle_ptr->format(circle_ptr);
+	circle_ptr->color = "Red";
+	circle_ptr->format(circle_ptr);
+
 	return 0;
 }
