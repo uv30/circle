@@ -15,24 +15,6 @@ struct Circle {
 	void (*format) (Circle *self);
 };
 
-Circle new(double radius, char *color);
-void new_from_ptr(Circle *circle_ptr, double radius, char *color);
-double circumference(Circle *self);
-double area(Circle *self);
-bool larger_than(Circle *self, Circle *other);
-void format(Circle *self);
-
-Circle new(double radius, char *color) {
-	Circle self;
-	self.radius = radius;
-	self.color = color;
-	self.circumference = circumference;
-	self.area = area;
-	self.larger_than = larger_than;
-	self.format = format;
-	return self;
-}
-
 double circumference(Circle *self) {
 	return 2 * PI * self->radius;
 }
@@ -64,3 +46,13 @@ void new_from_ptr(Circle *circle_ptr, double radius, char *color) {
 	return;
 }
 
+Circle new(double radius, char *color) {
+	Circle self;
+	self.radius = radius;
+	self.color = color;
+	self.circumference = circumference;
+	self.area = area;
+	self.larger_than = larger_than;
+	self.format = format;
+	return self;
+}
